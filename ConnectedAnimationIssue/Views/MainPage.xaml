@@ -7,7 +7,10 @@
     Style="{StaticResource PageStyle}"
     xmlns:prismMvvm="using:Prism.Windows.Mvvm"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True" 
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    xmlns:ownControls="using:ConnectedAnimationIssue.Controls"
+    xmlns:service="using:ConnectedAnimationIssue.Services"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations">
     <Grid
         x:Name="ContentArea"
         Margin="{StaticResource MediumLeftRightMargin}">
@@ -25,6 +28,54 @@
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
             <!--The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
                 Place your content here.-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBox
+                Text="{x:Bind ViewModel.RepoOwner, Mode=TwoWay}"
+                PlaceholderText="Github repo owner"
+                Grid.Row="0"
+                />
+            <TextBox
+                Text="{x:Bind ViewModel.RepoName, Mode=TwoWay}"
+                PlaceholderText="Github repo name"
+                Grid.Row="1"
+                />
+            <Button
+                Content="Fetch issues"
+                Command="{x:Bind ViewModel.SearchCommand}"
+                Grid.Row="2"
+                
+                />
+            <ListView
+                animations:Connected.ListItemElementName="searchResultControl"
+                animations:Connected.ListItemKey="searchResult"
+        
+                ItemsSource="{x:Bind ViewModel.SearchResults, Mode=OneWay}"
+                ItemClick="ViewModel.ListView_ItemClick"
+                IsItemClickEnabled="True"
+                Grid.Row="3"
+                >
+                <ListView.ItemTemplate>
+                    <DataTemplate
+                        x:DataType="service:GithubIssue" >
+                        <ownControls:GithubIssueSummary
+                            x:Name="searchResultControl"
+                            Title="{x:Bind title}"
+                            Creator="{x:Bind user}"
+                            />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Margin" Value="8" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
         </Grid>
     </Grid>
 </Page>

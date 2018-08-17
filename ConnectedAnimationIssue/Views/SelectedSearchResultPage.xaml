@@ -7,7 +7,9 @@
     Style="{StaticResource PageStyle}"
     xmlns:prismMvvm="using:Prism.Windows.Mvvm"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True" 
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    xmlns:ownControls="using:ConnectedAnimationIssue.Controls"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations">
     <Grid
         x:Name="ContentArea"
         Margin="{StaticResource MediumLeftRightMargin}">
@@ -25,6 +27,19 @@
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
             <!--The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
                 Place your content here.-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <ownControls:GithubIssueSummary
+                animations:Connected.Key="searchResult"
+                Title="{x:Bind ViewModel.SelectedIssue.title, Mode=OneWay}"
+                Creator="{x:Bind ViewModel.SelectedIssue.user, Mode=OneWay}"
+                />
+            <TextBlock
+                Text="Some other content..."
+                Grid.Row="1"
+                VerticalAlignment="Center"/>
         </Grid>
     </Grid>
 </Page>

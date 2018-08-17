@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Globalization;
 using System.Threading.Tasks;
-
+using ConnectedAnimationIssue.Services;
 using Microsoft.Practices.Unity;
 
 using Prism.Mvvm;
 using Prism.Unity.Windows;
 using Prism.Windows.AppModel;
-
+using Refit;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Resources;
 using Windows.UI.Xaml;
@@ -27,6 +27,7 @@ namespace ConnectedAnimationIssue
             // register a singleton using Container.RegisterType<IInterface, Type>(new ContainerControlledLifetimeManager());
             base.ConfigureContainer();
             Container.RegisterInstance<IResourceLoader>(new ResourceLoaderAdapter(new ResourceLoader()));
+            Container.RegisterInstance<IGithubApi>(RestService.For<IGithubApi>("https://api.github.com"));
         }
 
         protected override async Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)

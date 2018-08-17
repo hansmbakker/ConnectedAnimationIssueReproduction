@@ -93,7 +93,10 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.1.5</Version>
+      <Version>6.1.7</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Animations">
+      <Version>4.0.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
       <Version>2.0.0</Version>
@@ -101,6 +104,9 @@
     <!-- Nuget package references -->
     <PackageReference Include="Prism.Unity">
       <Version>6.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="Refit">
+      <Version>4.6.30</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -110,8 +116,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\GithubIssueSummary.xaml.cs">
+      <DependentUpon>GithubIssueSummary.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Constants\PageTokens.cs" />
+    <Compile Include="Services\IGithubApi.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\SelectedSearchResultViewModel.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
@@ -122,6 +132,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\GithubIssueSummary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\Page.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
